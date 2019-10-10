@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { connect } from "react-redux";
-import { createSport } from "../redux/actions";
+import { createSport, deleteSport, updateSport } from "../redux/actions";
 import SportsList from "../components/SportsList";
 import {
   Button,
@@ -66,12 +67,11 @@ class SportsListContainer extends React.Component {
   };
 
   render() {
-    const { sportsList } = this.props;
     const { sportName, sportSort } = this.state;
     return (
       <div>
         <ToastContainer />
-        <SportsList sportsList={sportsList} />
+        <SportsList {...this.props} />
         <Button onClick={this.toggle}>추가하기</Button>
 
         <Modal
@@ -123,13 +123,36 @@ class SportsListContainer extends React.Component {
   }
 }
 
+SportsListContainer.propTypes = {
+  sportsList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      sort: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ),
+  createSport: PropTypes.func,
+  updateSport: PropTypes.func,
+  deleteSport: PropTypes.func
+};
+
+SportsListContainer.default = {
+  sportsList: [],
+  createSport: () => {},
+  updateSport: () => {},
+  deleteSport: () => {}
+};
+
 const mapStateToProps = state => ({
   sportsList: state.sports
 });
 
 const mapDispatchToProps = dispatch => ({
-  createSport: (sort, name) => dispatch(createSport(sort, name))
+  createSport: (sort, name) => dispatch(createSport(sort, name)),
+  deleteSport: id => dispatch(deleteSport(id)),
+  updateSport: (id, sort, name) => dispatch(updateSport(id, sort, name))
 });
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

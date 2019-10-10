@@ -1,7 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  FormGroup,
+  Label,
+  Input
+} from "reactstrap";
 
-const SportsList = ({ sportsList }) => {
+const SportsList = ({ sportsList, updateSport, deleteSport }) => {
+  let modal = false;
+
+  const onDeleteSport = id => {
+    deleteSport(id);
+  };
+
+  const onUpdateSport = (id, sort, name) => {
+    updateSport(id, sort, name);
+  };
+
   return (
     <div>
       {sportsList ? (
@@ -9,6 +33,10 @@ const SportsList = ({ sportsList }) => {
           <li key={sport.id}>
             {sport.sort}
             {sport.name}
+            <FaRegEdit
+              onClick={() => onUpdateSport(sport.id, sport.sort, sport.name)}
+            />
+            <FaTrashAlt onClick={() => onDeleteSport(sport.id)} />
           </li>
         ))
       ) : (
@@ -28,19 +56,8 @@ SportsList.propTypes = {
   )
 };
 
-// SportsList.defaultProps = {
-//   sportsList: [
-//     {
-//       id: 0,
-//       sort: "가슴",
-//       name: "벤치프레스"
-//     },
-//     {
-//       id: 1,
-//       sort: "이두",
-//       name: "덤벨"
-//     }
-//   ]
-// };
+SportsList.defaultProps = {
+  sportsList: []
+};
 
 export default SportsList;
