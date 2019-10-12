@@ -4,7 +4,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { connect } from "react-redux";
 import { createSport, deleteSport, updateSport } from "../redux/actions";
-import SportsList from "../components/SportsList";
 import {
   Button,
   Modal,
@@ -16,6 +15,8 @@ import {
   Label,
   Input
 } from "reactstrap";
+
+import SportsList from "../components/SportsList";
 
 class SportsListContainer extends React.Component {
   state = {
@@ -54,10 +55,6 @@ class SportsListContainer extends React.Component {
       return;
     } else {
       createSport(sportSort, sportName);
-      toast.success("운동항목 추가 완료!😎", {
-        autoClose: 1000,
-        hideProgressBar: true
-      });
       this.setState({
         sportName: "",
         sportSort: "",

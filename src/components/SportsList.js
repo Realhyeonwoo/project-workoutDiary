@@ -1,43 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Form,
-  FormGroup,
-  Label,
-  Input
-} from "reactstrap";
 
-const SportsList = ({ sportsList, updateSport, deleteSport }) => {
-  let modal = false;
+import Sport from "./Sport";
 
-  const onDeleteSport = id => {
-    deleteSport(id);
-  };
-
-  const onUpdateSport = (id, sort, name) => {
-    updateSport(id, sort, name);
-  };
-
+const SportsList = ({ sportsList, ...props }) => {
   return (
     <div>
       {sportsList ? (
         sportsList.map(sport => (
-          <li key={sport.id}>
-            {sport.sort}
-            {sport.name}
-            <FaRegEdit
-              onClick={() => onUpdateSport(sport.id, sport.sort, sport.name)}
-            />
-            <FaTrashAlt onClick={() => onDeleteSport(sport.id)} />
-          </li>
+          <Sport key={sport.id} sport={sport} {...props} />
         ))
       ) : (
         <h3>운동 종목을 추가해주세요</h3>
