@@ -15,17 +15,27 @@ const Sport = ({ sport, deleteSport, updateSport }) => {
     } else {
       setName(e.target.value);
     }
-    toast.success("수정 완료!😎", {
-      autoClose: 1000,
-      hideProgressBar: true
-    });
   };
 
   const onEdit = () => setEdit(!edit);
 
   const onUpdate = () => {
-    onEdit();
-    updateSport(sport.id, sort, name);
+    if (name.trim().length === 0) {
+      toast.error("운동명을 입력하세요", {
+        autoClose: 1000,
+        hideProgressBar: true
+      });
+      return;
+    } else {
+      console.log("component");
+      console.log(sport._id, sort, name);
+      updateSport(sport._id, sort, name);
+      toast.success("수정 완료!😎", {
+        autoClose: 1000,
+        hideProgressBar: true
+      });
+      onEdit();
+    }
   };
 
   return (
@@ -52,7 +62,7 @@ const Sport = ({ sport, deleteSport, updateSport }) => {
           <Input type="text" value={sort} readOnly />
           <Input type="text" value={name} readOnly />
           <FaRegEdit onClick={onEdit} />
-          <FaTrashAlt onClick={() => deleteSport(sport.id)} />
+          <FaTrashAlt onClick={() => deleteSport(sport._id)} />
         </>
       )}
     </div>
@@ -61,7 +71,7 @@ const Sport = ({ sport, deleteSport, updateSport }) => {
 
 Sport.propTypes = {
   sport: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
     sort: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
   })

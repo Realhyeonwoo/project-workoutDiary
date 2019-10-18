@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import Navigation from "./components/Navigation";
 import Home from "./containers/HomeContainer";
-import SportsList from "./containers/SportsListContainer";
+import SportsList from "./routes/SportsList";
 
 const Div = styled.div`
   width: 100%;

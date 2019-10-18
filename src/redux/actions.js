@@ -1,16 +1,14 @@
 import * as type from "./actionTypes";
 
-let sportId = 1;
-
 export const createSport = (sort, name) => ({
-  type: type.CREATE_SPORT,
-  id: sportId++,
+  type: type.SAGA_CREATE_SPORT,
   sort,
   name
 });
 
-export const readSport = () => ({
-  type: type.READ_SPORT
+export const readSport = sportsList => ({
+  type: type.READ_SPORT,
+  sportsList
 });
 
 export const updateSport = (id, sort, name) => ({
@@ -20,7 +18,16 @@ export const updateSport = (id, sort, name) => ({
   name
 });
 
-export const deleteSport = id => ({
-  type: type.DELETE_SPORT,
-  id
-});
+export const deleteSport = id => {
+  console.log(`id: ${id}`);
+  return {
+    type: type.DELETE_SPORT,
+    id
+  };
+};
+
+export const fetchSportsList = () => {
+  return {
+    type: type.LOAD_SPORT
+  };
+};

@@ -1,8 +1,10 @@
 {
   "name": "workout-diary",
   "version": "0.1.0",
+  "proxy": "http://localhost:8080",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "immer": "^4.0.1",
     "prop-types": "^15.7.2",
@@ -15,6 +17,7 @@
     "react-toastify": "^5.4.0",
     "reactstrap": "^8.0.1",
     "redux": "^4.0.4",
+    "redux-saga": "^1.1.1",
     "styled-components": "^4.4.0"
   },
   "scripts": {

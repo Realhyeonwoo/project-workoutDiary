@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { connect } from "react-redux";
-import { createSport, deleteSport, updateSport } from "../redux/actions";
+import {
+  fetchSportsList,
+  createSport,
+  deleteSport,
+  updateSport
+} from "../../redux/actions";
+
 import {
   Button,
   Modal,
@@ -16,7 +22,7 @@ import {
   Input
 } from "reactstrap";
 
-import SportsList from "../components/SportsList";
+import SportsList from "./components/SportsList";
 
 class SportsListContainer extends React.Component {
   state = {
@@ -63,7 +69,11 @@ class SportsListContainer extends React.Component {
     }
   };
 
+  componentDidMount() {
+    this.props.readSport();
+  }
   render() {
+    console.log("Rendering@@");
     const { sportName, sportSort } = this.state;
     return (
       <div>
@@ -123,11 +133,12 @@ class SportsListContainer extends React.Component {
 SportsListContainer.propTypes = {
   sportsList: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      _id: PropTypes.string.isRequired,
       sort: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired
     })
   ),
+  readSport: PropTypes.func,
   createSport: PropTypes.func,
   updateSport: PropTypes.func,
   deleteSport: PropTypes.func
@@ -135,6 +146,7 @@ SportsListContainer.propTypes = {
 
 SportsListContainer.default = {
   sportsList: [],
+  readSport: () => {},
   createSport: () => {},
   updateSport: () => {},
   deleteSport: () => {}
@@ -145,6 +157,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  readSport: () => dispatch(fetchSportsList()),
   createSport: (sort, name) => dispatch(createSport(sort, name)),
   deleteSport: id => dispatch(deleteSport(id)),
   updateSport: (id, sort, name) => dispatch(updateSport(id, sort, name))
