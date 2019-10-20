@@ -10,19 +10,10 @@ import {
   updateSport
 } from "../../redux/actions";
 
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Form,
-  FormGroup,
-  Label,
-  Input
-} from "reactstrap";
+import { Button } from "reactstrap";
 
 import SportsList from "./components/SportsList";
+import AddModal from "./components/AddModal";
 
 class SportsListContainer extends React.Component {
   state = {
@@ -70,61 +61,26 @@ class SportsListContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.readSport();
+    const { readSport } = this.props;
+    readSport();
   }
+
   render() {
     console.log("Rendering@@");
-    const { sportName, sportSort } = this.state;
+    const { modal, sportName, sportSort } = this.state;
     return (
       <div>
         <ToastContainer />
         <SportsList {...this.props} />
         <Button onClick={this.toggle}>추가하기</Button>
-
-        <Modal
-          isOpen={this.state.modal}
+        <AddModal
+          modal={modal}
+          sportName={sportName}
+          sportSort={sportSort}
           toggle={this.toggle}
-          className={this.props.className}
-        >
-          <ModalHeader toggle={this.toggle}>새로운 운동 추가</ModalHeader>
-          <ModalBody>
-            <ToastContainer style={{ color: "white" }} />
-            <Form onSubmit={this.handleSubmit}>
-              <FormGroup>
-                <Label for="sportSort">분류</Label>
-                <Input
-                  type="select"
-                  name="select"
-                  id="sportSort"
-                  value={sportSort}
-                  onChange={this.handleSportInfo}
-                >
-                  <option value="-">-</option>
-                  <option value="가슴">가슴</option>
-                  <option value="등">등</option>
-                </Input>
-                <br />
-                <Label for="sportName">종목</Label>
-                <Input
-                  type="text"
-                  name="name"
-                  id="sportName"
-                  placeholder="새로운 운동 입력"
-                  defaultValue={sportName}
-                  onChange={this.handleSportInfo}
-                />
-              </FormGroup>
-            </Form>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.handleSubmit}>
-              추가하기
-            </Button>
-            <Button color="secondary" onClick={this.toggle}>
-              취소
-            </Button>
-          </ModalFooter>
-        </Modal>
+          handleSportInfo={this.handleSportInfo}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     );
   }

@@ -38,6 +38,13 @@ const Sport = ({ sport, deleteSport, updateSport }) => {
     }
   };
 
+  const onDelete = id => {
+    deleteSport(id);
+    toast.success("삭제 완료!😎", {
+      autoClose: 1000,
+      hideProgressBar: true
+    });
+  };
   return (
     <div>
       {edit ? (
@@ -62,7 +69,7 @@ const Sport = ({ sport, deleteSport, updateSport }) => {
           <Input type="text" value={sort} readOnly />
           <Input type="text" value={name} readOnly />
           <FaRegEdit onClick={onEdit} />
-          <FaTrashAlt onClick={() => deleteSport(sport._id)} />
+          <FaTrashAlt onClick={() => onDelete(sport._id)} />
         </>
       )}
     </div>
