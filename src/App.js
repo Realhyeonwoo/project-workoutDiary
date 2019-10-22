@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 
 import Navigation from "./components/Navigation";
-import Home from "./containers/HomeContainer";
+import Home from "./routes/Home";
 import SportsList from "./routes/SportsList";
 
 const Div = styled.div`

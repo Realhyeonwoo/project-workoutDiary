@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
 
 import {
   Button,
@@ -27,7 +27,7 @@ const AddModal = ({
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>새로운 운동 추가</ModalHeader>
         <ModalBody>
-          <ToastContainer style={{ color: "white" }} />
+          {/* <ToastContainer style={{ color: "white" }} /> */}
           <Form onSubmit={handleSubmit}>
             <FormGroup>
               <Label for="sportSort">분류</Label>
